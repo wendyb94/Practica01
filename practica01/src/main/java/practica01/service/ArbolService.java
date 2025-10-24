@@ -36,9 +36,16 @@ public class ArbolService {
         throw new UnsupportedOperationException("Guardar/actualizar árbol: pendiente de implementación");
     }
 
-    @Transactional
+   @Transactional
     public void delete(Integer id) {
-        //Eliminar aquí
+        if (!arbolRepository.existsById(id)) {
+            throw new IllegalArgumentException("El árbol con ID " + id + " no existe.");
+        }
+        try {
+            arbolRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalStateException("No se puede eliminar el árbol. Tiene datos asociados.", e);
+        }
     }
 }
 
