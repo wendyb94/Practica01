@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{general/fragmentos :: head}"></head>
+  <body>
+    <header th:replace="~{general/fragmentos :: header}"></header>
+
+    <main class="container my-5">
+      <a th:href="@{/arbol/listado}" class="btn btn-outline-secondary mb-4">
+        <i class="fa-solid fa-arrow-left"></i> Volver al listado
+      </a>
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="h4 mb-4">
+            <i class="fa-solid fa-tree me-2 text-success"></i>
+            <span th:text="${arbol.id == null ? 'Agregar árbol' : 'Editar árbol'}">Formulario</span>
+          </h2>
+
+          <form th:action="@{/arbol/guardar}" th:object="${arbol}" method="post" class="row g-3">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="col-md-6">
+              <label class="form-label">Nombre común</label>
+              <input type="text" th:field="*{nombreComun}" class="form-control"/>
+              <div class="text-danger small" th:if="${#fields.hasErrors('nombreComun')}" th:errors="*{nombreComun}"></div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Tipo de flor</label>
+              <input type="text" th:field="*{tipoFlor}" class="form-control"/>
+              <div class="text-danger small" th:if="${#fields.hasErrors('tipoFlor')}" th:errors="*{tipoFlor}"></div>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Dureza de la madera (0–100)</label>
+              <input type="number" min="0" max="100" th:field="*{durezaMadera}" class="form-control"/>
+              <div class="text-danger small" th:if="${#fields.hasErrors('durezaMadera')}" th:errors="*{durezaMadera}"></div>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Altura promedio (m)</label>
+              <input type="number" step="0.01" min="0" th:field="*{alturaPromedio}" class="form-control"/>
+              <div class="text-danger small" th:if="${#fields.hasErrors('alturaPromedio')}" th:errors="*{alturaPromedio}"></div>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Ruta de imagen (URL)</label>
+              <input type="text" th:field="*{imagenRuta}" class="form-control" placeholder="https://..."/>
+              <div class="form-text">Opcional. Enlace a una imagen.</div>
+            </div>
+
+            <div class="col-12 text-end">
+              <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-floppy-disk"></i> [[#{accion.guardar}]]
+              </button>
+            </div>
+
+            <!-- Depuración opcional (quitar en prod)
+            <pre class="small text-muted">id: <span th:text="*{id}">null</span></pre>
+            -->
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer th:replace="~{general/fragmentos :: footer}"></footer>
+  </body>
+</html>
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{general/fragmentos :: head}"></head>
+  <body>
+    <header th:replace="~{general/fragmentos :: header}"></header>
+
+    <main class="container my-5">
+      <a th:href="@{/arbol/listado}" class="btn btn-outline-secondary mb-4">
+        <i class="fa-solid fa-arrow-left"></i> Volver al listado
+      </a>
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title mb-3 text-success" th:text="${arbol.nombreComun}">Nombre común</h2>
+
+          <div class="row">
+            <div class="col-md-8">
+              <p><strong>Tipo de flor:</strong> <span th:text="${arbol.tipoFlor}">—</span></p>
+              <p><strong>Dureza de la madera:</strong> <span th:text="${arbol.durezaMadera}">—</span></p>
+              <p><strong>Altura promedio (m):</strong>
+                 <span th:text="${#numbers.formatDecimal(arbol.alturaPromedio, 1, 'POINT', 2, 'COMMA')}">0,00</span>
+              </p>
+            </div>
+            <div class="col-md-4">
+              <div class="ratio ratio-1x1 border rounded bg-light d-flex align-items-center justify-content-center">
+                <img th:if="${arbol.imagenRuta != null}" th:src="${arbol.imagenRuta}" alt="Imagen" class="img-fluid rounded"/>
+                <span th:if="${arbol.imagenRuta == null}" class="text-muted">Sin imagen</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer th:replace="~{general/fragmentos :: footer}"></footer>
+  </body>
+</html>

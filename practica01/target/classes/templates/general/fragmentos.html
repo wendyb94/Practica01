@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:fragment="head">
+        <title>[[#{aplicacion.titulo}]]</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+        <script th:src="@{/js/rutinas.js}"></script>
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    </head>
+
+    <body>
+        <!-- HEADER + HOME CONTENT -->
+        <header th:fragment="header" class="header">
+            <!-- NAVBAR -->
+            <nav class="navbar navbar-expand-sm navbar-light bg-light border-bottom">
+                <div class="container">
+                    <a th:href="@{/}" class="navbar-brand fw-semibold">[[#{aplicacion.titulo}]]</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- HERO / ENCABEZADO INICIO -->
+            <section id="main-header" class="py-4 bg-success text-white">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <h1 class="h2 mb-3">
+                                <i class="fa-solid fa-tree me-2"></i>
+                                [[#{inicio.tituloHero}]]
+                            </h1>
+                            <p class="mb-0">[[#{inicio.subtituloHero}]]</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+
+        </header>
+
+        <!-- FOOTER -->
+        <footer th:fragment="footer" class="p-2 mt-5 bg-dark text-white">
+            <p class="lead text-center m-0">[[#{plantilla.derechos}]] &COPY;</p>
+        </footer>
+
+        <!-- TOASTS -->
+        <section th:fragment="mostrarToast">
+            <div aria-live="polite" aria-atomic="true"
+                 class="position-fixed top-50 start-50 translate-middle" style="z-index: 1080;">
+                <div th:if="${error}" class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
+                    <div class="toast-header text-white bg-danger">
+                        <i class="fa-solid fa-bomb"></i>
+                        <strong class="ms-2">[[#{error}]]</strong>
+                    </div>
+                    <div class="toast-body">
+                        <p>[[${error}]]</p>
+                        <div class="mt-2 pt-2 border-top text-center">
+                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">[[#{accion.cerrar}]]</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${todoOk}" class="toast show" role="status" aria-live="polite" aria-atomic="true" data-bs-autohide="true">
+                    <div class="toast-header text-white bg-success">
+                        <i class="fa-solid fa-square-check"></i>
+                        <strong class="ms-2">[[#{atencion}]]</strong>
+                    </div>
+                    <div class="toast-body">
+                        <p>[[${todoOk}]]</p>
+                        <div class="mt-2 pt-2 border-top text-center">
+                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">[[#{accion.cerrar}]]</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
+
