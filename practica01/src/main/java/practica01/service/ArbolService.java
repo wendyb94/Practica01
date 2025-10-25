@@ -32,8 +32,20 @@ public class ArbolService {
 
     @Transactional
     public Arbol saveOrUpdate(Arbol src) {
-        //Agregar y actualizar aquí
-        throw new UnsupportedOperationException("Guardar/actualizar árbol: pendiente de implementación");
+        //Si viene con id update; si no create
+        if (src.getId() != null) {
+            Arbol dst = arbolRepository.findById(src.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("El árbol no existe"));
+
+            dst.setNombreComun(src.getNombreComun());
+            dst.setTipoFlor(src.getTipoFlor());
+            dst.setDurezaMadera(src.getDurezaMadera());
+            dst.setAlturaPromedio(src.getAlturaPromedio());
+            dst.setImagenRuta(src.getImagenRuta());
+
+            return arbolRepository.save(dst);
+        }
+        return arbolRepository.save(src);
     }
 
    @Transactional
